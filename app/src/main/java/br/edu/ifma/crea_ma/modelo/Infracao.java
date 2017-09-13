@@ -69,5 +69,8 @@ public class Infracao {
         this.notaInfracao = notaInfracao;
     }
 
-
+    @Override
+    public String toString() {
+        return getId() +" - "+ getNomeNotificado()+ " Infrações: "+getInfracoesCometidas() + " - " + " Multa: " +getValorMulta();
+    }
 }

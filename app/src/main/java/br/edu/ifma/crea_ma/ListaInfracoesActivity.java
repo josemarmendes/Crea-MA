@@ -8,6 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.List;
+
+import br.edu.ifma.crea_ma.dao.InfracaoDAO;
+import br.edu.ifma.crea_ma.modelo.Infracao;
+
 public class ListaInfracoesActivity extends AppCompatActivity {
 
     @Override
@@ -15,11 +20,12 @@ public class ListaInfracoesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_infracoes);
 
-
-        String [] infracoes = {"1 - Obra sem licenciamento", "2 - Obra em desacordo com os projetos aprovados ou visados"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, infracoes);
+        InfracaoDAO dao = new InfracaoDAO(this);
+        List<Infracao> listaDeInfracoes = dao.buscaInfracoes();
+        dao.close();
 
         ListView listaInfracoes = (ListView) findViewById(R.id.lista_infracoes);
+        ArrayAdapter<Infracao> adapter = new ArrayAdapter<Infracao>(this, android.R.layout.simple_expandable_list_item_1, listaDeInfracoes);
         listaInfracoes.setAdapter(adapter);
 
         Button novaInfracao = (Button) findViewById(R.id.btnIncluirInfracao);

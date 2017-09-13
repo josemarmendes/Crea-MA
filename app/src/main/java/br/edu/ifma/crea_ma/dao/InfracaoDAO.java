@@ -2,8 +2,13 @@ package br.edu.ifma.crea_ma.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.sql.SQLData;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.edu.ifma.crea_ma.modelo.Infracao;
 
@@ -42,5 +47,30 @@ public class InfracaoDAO extends SQLiteOpenHelper{
         dados.put("nota_infracao", infracao.getNotaInfracao());
         //String sql = "INSERT INTO Infracoes (nome_notificado, dados_obra, etapas_concluidas, infracoes_cometidas, valor_multa, nota_infracao) VALUES (?, ?, ?, ?, ?)";
         db.insert("Infracoes", null, dados);
+    }
+
+    public List<Infracao> buscaInfracoes() {
+
+        String sql = "SELECT * FROM Infracoes;";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(sql, null);
+        List<Infracao> infracoes = new ArrayList<Infracao>();
+
+        while (c.moveToNext()){
+            Infracao infracao = new Infracao();
+            infracao.setId(c.getLong(c.getColumnIndex("id")));
+            infracao.setNomeNotificado(c.getString(c.getColumnIndex("nome_notificado")));
+            infracao.setDadosObra(c.getString(c.getColumnIndex("dados_obra")));
+            infracao.setEtapasConcluidas(c.getString(c.getColumnIndex("etapas_concluidas")));
+            infracao.setInfracoesCometidas(c.getString(c.getColumnIndex("infracoes_cometidas")));
+            infracao.setValorMulta(c.getDouble(c.getColumnIndex("valor_multa")));
+            infracao.setNotaInfracao(c.getDouble(c.getColumnIndex("nota_infracao")));
+
+            infracoes.add(infracao);
+        }
+
+        c.close();
+
+        return infracoes;
     }
 }
