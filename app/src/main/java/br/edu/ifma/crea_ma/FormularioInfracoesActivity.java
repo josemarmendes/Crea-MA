@@ -8,14 +8,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import br.edu.ifma.crea_ma.modelo.Infracao;
+
 public class FormularioInfracoesActivity extends AppCompatActivity {
+
+    private FormularioHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_infracoes);
+
+        helper = new FormularioHelper(this);
+
 
     }
 
@@ -32,7 +40,10 @@ public class FormularioInfracoesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_formulario_ok:
-                Toast.makeText(FormularioInfracoesActivity.this, "Infração salva com sucesso", Toast.LENGTH_SHORT).show();
+
+                Infracao infracao = helper.pegaInfracao();
+                Toast.makeText(FormularioInfracoesActivity.this, "Infração " + infracao.getNomeNotificado() + " salva com sucesso", Toast.LENGTH_SHORT).show();
+
                 finish();
                 break;
         }

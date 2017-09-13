@@ -18,6 +18,12 @@
             android:id="@+id/edtNomeNotificado"/>
 
         <EditText
+            android:hint="Etapas Concluídas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtEtapasConcluidas"/>
+
+        <EditText
             android:hint="Dados da Obra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
