@@ -20,14 +20,6 @@ public class ListaInfracoesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_infracoes);
 
-        InfracaoDAO dao = new InfracaoDAO(this);
-        List<Infracao> listaDeInfracoes = dao.buscaInfracoes();
-        dao.close();
-
-        ListView listaInfracoes = (ListView) findViewById(R.id.lista_infracoes);
-        ArrayAdapter<Infracao> adapter = new ArrayAdapter<Infracao>(this, android.R.layout.simple_expandable_list_item_1, listaDeInfracoes);
-        listaInfracoes.setAdapter(adapter);
-
         Button novaInfracao = (Button) findViewById(R.id.btnIncluirInfracao);
 
         novaInfracao.setOnClickListener(new View.OnClickListener() {
@@ -39,4 +31,20 @@ public class ListaInfracoesActivity extends AppCompatActivity {
             }
         });
      }
+
+    private void carregaListaInfracao() {
+        InfracaoDAO dao = new InfracaoDAO(this);
+        List<Infracao> listaDeInfracoes = dao.buscaInfracoes();
+        dao.close();
+
+        ListView listaInfracoes = (ListView) findViewById(R.id.lista_infracoes);
+        ArrayAdapter<Infracao> adapter = new ArrayAdapter<Infracao>(this, android.R.layout.simple_expandable_list_item_1, listaDeInfracoes);
+        listaInfracoes.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregaListaInfracao();
+    }
 }
