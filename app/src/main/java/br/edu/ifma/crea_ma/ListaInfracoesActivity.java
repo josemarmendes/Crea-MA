@@ -15,6 +15,7 @@ public class ListaInfracoesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_infracoes);
 
+
         String [] infracoes = {"1 - Obra sem licenciamento", "2 - Obra em desacordo com os projetos aprovados ou visados"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, infracoes);
 

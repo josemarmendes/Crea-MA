@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import br.edu.ifma.crea_ma.dao.InfracaoDAO;
 import br.edu.ifma.crea_ma.modelo.Infracao;
 
 public class FormularioInfracoesActivity extends AppCompatActivity {
@@ -23,7 +24,6 @@ public class FormularioInfracoesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_infracoes);
 
         helper = new FormularioHelper(this);
-
 
     }
 
@@ -42,6 +42,10 @@ public class FormularioInfracoesActivity extends AppCompatActivity {
             case R.id.menu_formulario_ok:
 
                 Infracao infracao = helper.pegaInfracao();
+                InfracaoDAO dao = new InfracaoDAO(this);
+                dao.insere(infracao);
+                dao.close();
+
                 Toast.makeText(FormularioInfracoesActivity.this, "Infração " + infracao.getNomeNotificado() + " salva com sucesso", Toast.LENGTH_SHORT).show();
 
                 finish();
