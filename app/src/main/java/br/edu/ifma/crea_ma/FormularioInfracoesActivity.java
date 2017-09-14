@@ -48,10 +48,14 @@ public class FormularioInfracoesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_formulario_ok:
-
                 Infracao infracao = helper.pegaInfracao();
                 InfracaoDAO dao = new InfracaoDAO(this);
-                dao.insere(infracao);
+
+                if(infracao.getId() != null){
+                    dao.altera(infracao);
+                } else {
+                    dao.insere(infracao);
+                }
                 dao.close();
 
                 Toast.makeText(FormularioInfracoesActivity.this, "Infração " + infracao.getNomeNotificado() + " salva com sucesso", Toast.LENGTH_SHORT).show();

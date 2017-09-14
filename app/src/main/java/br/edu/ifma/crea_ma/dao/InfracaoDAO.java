@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,13 @@ public class InfracaoDAO extends SQLiteOpenHelper{
 
     public void insere(Infracao infracao) {
         SQLiteDatabase db = getWritableDatabase();
+        ContentValues dados = pegaDadosDaInfracao(infracao);
+
+        db.insert("Infracoes", null, dados);
+    }
+
+    @NonNull
+    private ContentValues pegaDadosDaInfracao(Infracao infracao) {
         ContentValues dados = new ContentValues();
         dados.put("nome_notificado", infracao.getNomeNotificado());
         dados.put("dados_obra", infracao.getDadosObra());
@@ -44,8 +52,7 @@ public class InfracaoDAO extends SQLiteOpenHelper{
         dados.put("infracoes_cometidas", infracao.getInfracoesCometidas());
         dados.put("valor_multa", infracao.getValorMulta());
         dados.put("nota_infracao", infracao.getNotaInfracao());
-        //String sql = "INSERT INTO Infracoes (nome_notificado, dados_obra, etapas_concluidas, infracoes_cometidas, valor_multa, nota_infracao) VALUES (?, ?, ?, ?, ?)";
-        db.insert("Infracoes", null, dados);
+        return dados;
     }
 
     public List<Infracao> buscaInfracoes() {
@@ -79,4 +86,14 @@ public class InfracaoDAO extends SQLiteOpenHelper{
         db.delete("Infracoes", "id = ?", params);
 
     }
+
+    public void altera(Infracao infracao) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues dados = pegaDadosDaInfracao(infracao);
+
+        String[] params = {infracao.getId().toString()};
+        db.update("Infracoes", dados, "id = ?", params);
+
+    }
+
 }
