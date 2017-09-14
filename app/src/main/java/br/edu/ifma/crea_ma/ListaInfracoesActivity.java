@@ -28,6 +28,14 @@ public class ListaInfracoesActivity extends AppCompatActivity {
 
         listaInfracoes = (ListView) findViewById(R.id.lista_infracoes);
 
+        listaInfracoes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> lista, View item, int posicao, long id) {
+                Infracao infracao = (Infracao) listaInfracoes.getItemAtPosition(posicao);
+                Toast.makeText(ListaInfracoesActivity.this, "Infração do Proprieário: " + infracao.getNomeNotificado() + " clicado!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         Button novaInfracao = (Button) findViewById(R.id.btnIncluirInfracao);
         novaInfracao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +43,14 @@ public class ListaInfracoesActivity extends AppCompatActivity {
                 Intent intentVaiProFormulario = new Intent(ListaInfracoesActivity.this, FormularioInfracoesActivity.class);
                 startActivity(intentVaiProFormulario);
 
+            }
+        });
+
+        listaInfracoes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> lista, View item, int posicao, long id) {
+                Toast.makeText(ListaInfracoesActivity.this, " Clique longo!", Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
 
