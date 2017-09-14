@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.sql.SQLData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,5 +71,12 @@ public class InfracaoDAO extends SQLiteOpenHelper{
         c.close();
 
         return infracoes;
+    }
+
+    public void remove(Infracao infracao) {
+        SQLiteDatabase db = getWritableDatabase();
+        String[] params = {infracao.getId().toString()};
+        db.delete("Infracoes", "id = ?", params);
+
     }
 }
