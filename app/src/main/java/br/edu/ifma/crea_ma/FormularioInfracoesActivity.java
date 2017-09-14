@@ -25,6 +25,14 @@ public class FormularioInfracoesActivity extends AppCompatActivity {
 
         helper = new FormularioHelper(this);
 
+        Intent intent = getIntent();
+        Infracao infracao = (Infracao) intent.getSerializableExtra("infracao");
+        if(infracao != null){
+            helper.preencheFormularioInfracao(infracao);
+        }
+
+
+
     }
 
     @Override

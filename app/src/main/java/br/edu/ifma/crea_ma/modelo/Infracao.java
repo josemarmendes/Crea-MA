@@ -1,10 +1,12 @@
 package br.edu.ifma.crea_ma.modelo;
 
+import java.io.Serializable;
+
 /**
  * Created by josemar on 13/09/17.
  */
 
-public class Infracao {
+public class Infracao implements Serializable{
     private Long id;
     private String nomeNotificado;
     private String dadosObra;

@@ -32,7 +32,9 @@ public class ListaInfracoesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> lista, View item, int posicao, long id) {
                 Infracao infracao = (Infracao) listaInfracoes.getItemAtPosition(posicao);
-                Toast.makeText(ListaInfracoesActivity.this, "Infração do Proprieário: " + infracao.getNomeNotificado() + " clicado!", Toast.LENGTH_SHORT).show();
+                Intent intentVaiProFormulario = new Intent(ListaInfracoesActivity.this, FormularioInfracoesActivity.class);
+                intentVaiProFormulario.putExtra("infracao", infracao);
+                startActivity(intentVaiProFormulario);
             }
         });
 
