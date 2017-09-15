@@ -1,6 +1,7 @@
 package br.edu.ifma.crea_ma;
 
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,8 +32,15 @@ public class FormularioInfracoesActivity extends AppCompatActivity {
             helper.preencheFormularioInfracao(infracao);
         }
 
-
-
+        Button botaoFoto = (Button) findViewById(R.id.formulario_botao_infracao);
+        botaoFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, "foto.png");
+                startActivity(intentCamera);
+            }
+        });
     }
 
     @Override
