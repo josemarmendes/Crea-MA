@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.edu.ifma.crea_ma.adapter.InfracoesAdapter;
 import br.edu.ifma.crea_ma.dao.InfracaoDAO;
 import br.edu.ifma.crea_ma.modelo.Infracao;
 
@@ -65,8 +66,7 @@ public class ListaInfracoesActivity extends AppCompatActivity {
         List<Infracao> listaDeInfracoes = dao.buscaInfracoes();
         dao.close();
 
-
-        ArrayAdapter<Infracao> adapter = new ArrayAdapter<Infracao>(this, android.R.layout.simple_expandable_list_item_1, listaDeInfracoes);
+        InfracoesAdapter adapter = new InfracoesAdapter(this, listaDeInfracoes);
         listaInfracoes.setAdapter(adapter);
     }
 
