@@ -23,6 +23,7 @@
 
         <activity android:name=".ListaProprietariosActivity"
             android:label="Lista de Proprietários">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

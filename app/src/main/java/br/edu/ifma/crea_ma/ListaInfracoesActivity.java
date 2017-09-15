@@ -1,6 +1,7 @@
 package br.edu.ifma.crea_ma;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -77,12 +78,19 @@ public class ListaInfracoesActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
-       MenuItem deletar = menu.add("Remover");
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Infracao infracao = (Infracao) listaInfracoes.getItemAtPosition(info.position);
+
+        MenuItem itemSite = menu.add("Visitar site");
+        Intent intentSite = new Intent(Intent.ACTION_VIEW);
+        intentSite.setData(Uri.parse("http://www.creama.org.br/new/"));
+        itemSite.setIntent(intentSite);
+
+        MenuItem deletar = menu.add("Remover");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Infracao infracao = (Infracao) listaInfracoes.getItemAtPosition(info.position);
+
 
                 InfracaoDAO dao = new InfracaoDAO(ListaInfracoesActivity.this);
                 dao.remove(infracao);
