@@ -1,13 +1,18 @@
 package br.edu.ifma.crea_ma.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
+import br.edu.ifma.crea_ma.R;
 import br.edu.ifma.crea_ma.modelo.Infracao;
 
 /**
@@ -42,9 +47,32 @@ public class InfracoesAdapter extends BaseAdapter{
 
     @Override
     public View getView(int posicao, View convertView, ViewGroup parent) {
-        TextView view = new TextView(context);
         Infracao infracao = infracoes.get(posicao);
-        view.setText(infracao.toString());
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        View view = convertView;
+        if(view == null){
+            view = inflater.inflate(R.layout.list_item_infracao, parent, false);
+        }
+
+        TextView campoNome = (TextView) view.findViewById(R.id.item_nome_infracao);
+        campoNome.setText(infracao.getNomeNotificado());
+
+        TextView campoTipoInfracao = (TextView) view.findViewById(R.id.item_nome_tipoinfracao);
+        campoTipoInfracao.setText(infracao.getInfracoesCometidas());
+
+        ImageView campoFotoInfracao = (ImageView) view.findViewById(R.id.item_foto_list_infracao);
+        String caminhoFoto = infracao.getCaminhoFoto();
+
+        if(caminhoFoto != null){
+            Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+            campoFotoInfracao.setImageBitmap(bitmapReduzido);
+            campoFotoInfracao.setScaleType(ImageView.ScaleType.FIT_XY);
+            campoFotoInfracao.setTag(caminhoFoto);
+        }
+
         return view;
     }
 }
