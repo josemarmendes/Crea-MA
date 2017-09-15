@@ -1,6 +1,7 @@
 package br.edu.ifma.crea_ma.modelo;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 /**
  * Created by josemar on 13/09/17.
@@ -14,6 +15,7 @@ public class Infracao implements Serializable{
     private String infracoesCometidas;
     private Double valorMulta;
     private Double notaInfracao;
+    private String caminhoFoto;
 
     public Long getId() {
         return id;
@@ -69,6 +71,14 @@ public class Infracao implements Serializable{
 
     public void setNotaInfracao(Double notaInfracao) {
         this.notaInfracao = notaInfracao;
+    }
+
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    public void setCaminhoFoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
     }
 
     @Override

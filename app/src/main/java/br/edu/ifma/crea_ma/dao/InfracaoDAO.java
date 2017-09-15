@@ -19,20 +19,29 @@ import br.edu.ifma.crea_ma.modelo.Infracao;
 public class InfracaoDAO extends SQLiteOpenHelper{
 
     public InfracaoDAO(Context context) {
-        super(context, "Infracao", null, 1);
+        super(context, "Infracao", null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Infracoes (id INTEGER PRIMARY KEY, nome_notificado TEXT NOT NULL, dados_obra TEXT, etapas_concluidas TEXT, infracoes_cometidas TEXT, valor_multa REAL, nota_infracao REAL);";
+        String sql = "CREATE TABLE Infracoes (id INTEGER PRIMARY KEY, " +
+                "nome_notificado TEXT NOT NULL, " +
+                "dados_obra TEXT, etapas_concluidas TEXT, " +
+                "infracoes_cometidas TEXT, valor_multa REAL, " +
+                "nota_infracao REAL, " +
+                "caminhoFoto TEXT);";
         db.execSQL(sql);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        String sql = "DROP TABLE IF EXISTS Infracoes";
-        db.execSQL(sql);
-        onCreate(db);
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String sql;
+
+        switch (oldVersion){
+            case 1:
+                sql = "ALTER TABLE Infracoes ADD COLUMN caminhoFoto TEXT";
+                db.execSQL(sql);
+        }
 
     }
 
@@ -52,6 +61,7 @@ public class InfracaoDAO extends SQLiteOpenHelper{
         dados.put("infracoes_cometidas", infracao.getInfracoesCometidas());
         dados.put("valor_multa", infracao.getValorMulta());
         dados.put("nota_infracao", infracao.getNotaInfracao());
+        dados.put("caminhoFoto", infracao.getCaminhoFoto());
         return dados;
     }
 
@@ -71,6 +81,7 @@ public class InfracaoDAO extends SQLiteOpenHelper{
             infracao.setInfracoesCometidas(c.getString(c.getColumnIndex("infracoes_cometidas")));
             infracao.setValorMulta(c.getDouble(c.getColumnIndex("valor_multa")));
             infracao.setNotaInfracao(c.getDouble(c.getColumnIndex("nota_infracao")));
+            infracao.setCaminhoFoto(c.getString(c.getColumnIndex("caminhoFoto")));
 
             infracoes.add(infracao);
         }

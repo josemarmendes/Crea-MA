@@ -1,7 +1,10 @@
 package br.edu.ifma.crea_ma;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 
 import br.edu.ifma.crea_ma.modelo.Infracao;
@@ -19,6 +22,7 @@ public class FormularioHelper {
     private final EditText campoInfracoesCometidas;
     private final EditText campoValorMulta;
     private final RatingBar campoNotaInfracao;
+    private final ImageView campoFoto;
 
     private Infracao infracao;
 
@@ -30,7 +34,9 @@ public class FormularioHelper {
         campoInfracoesCometidas = (EditText) activity.findViewById(R.id.edtInfracoesCometidas);
         campoValorMulta = (EditText) activity.findViewById(R.id.edtValorMulta);
         campoNotaInfracao = (RatingBar) activity.findViewById(R.id.rtbFormularioInfracao);
+        campoFoto = (ImageView) activity.findViewById(R.id.formulario_foto_infracao);;
         infracao = new Infracao();
+
     }
 
 
@@ -41,6 +47,7 @@ public class FormularioHelper {
         infracao.setInfracoesCometidas(campoInfracoesCometidas.getText().toString());
         infracao.setValorMulta(Double.parseDouble(campoValorMulta.getText().toString()));
         infracao.setNotaInfracao(Double.valueOf(campoNotaInfracao.getProgress()));
+        infracao.setCaminhoFoto((String) campoFoto.getTag());
         return infracao;
     }
 
@@ -52,7 +59,18 @@ public class FormularioHelper {
         campoInfracoesCometidas.setText(infracao.getInfracoesCometidas());
         campoValorMulta.setText(infracao.getValorMulta().toString());
         campoNotaInfracao.setProgress(infracao.getNotaInfracao().intValue());
+        carregaImagem(infracao.getCaminhoFoto());
         this.infracao = infracao;
     }
 
+    public void carregaImagem(String caminhoFoto) {
+        if(caminhoFoto != null){
+            Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+            campoFoto.setImageBitmap(bitmapReduzido);
+            campoFoto.setScaleType(ImageView.ScaleType.FIT_XY);
+            campoFoto.setTag(caminhoFoto);
+        }
+
+    }
 }
