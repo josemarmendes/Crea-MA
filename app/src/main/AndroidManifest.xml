@@ -21,14 +21,20 @@
 
         </activity>
 
-        <activity
-            android:name=".FormularioProprietariosActivity"
-            android:label="Formulario de Proprietários">
+        <activity android:name=".ListaProprietariosActivity"
+            android:label="Lista de Proprietários">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".FormularioProprietariosActivity"
+            android:label="Formulario de Proprietários">
+
         </activity>
     </application>
 
