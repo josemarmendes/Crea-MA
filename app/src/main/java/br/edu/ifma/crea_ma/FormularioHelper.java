@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 
 import br.edu.ifma.crea_ma.modelo.Infracao;
+import br.edu.ifma.crea_ma.modelo.Proprietario;
 
 /**
  * Created by josemar on 13/09/17.
@@ -32,6 +33,7 @@ public class FormularioHelper {
         infracao = new Infracao();
     }
 
+
     public Infracao pegaInfracao() {
         infracao.setNomeNotificado(campoNome.getText().toString());
         infracao.setDadosObra(campoDadosObra.getText().toString());
@@ -42,6 +44,7 @@ public class FormularioHelper {
         return infracao;
     }
 
+
     public void preencheFormularioInfracao(Infracao infracao) {
         campoNome.setText(infracao.getNomeNotificado());
         campoDadosObra.setText(infracao.getDadosObra());
@@ -51,4 +54,5 @@ public class FormularioHelper {
         campoNotaInfracao.setProgress(infracao.getNotaInfracao().intValue());
         this.infracao = infracao;
     }
+
 }
